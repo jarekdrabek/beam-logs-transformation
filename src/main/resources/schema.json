@@ -1,0 +1,129 @@
+{
+  "fields": [
+    {
+      "name": "type",
+      "type": "STRING",
+      "mode": "REQUIRED"
+    },
+    {
+      "name": "timestamp",
+      "type": "TIMESTAMP",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "elb",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "client_port",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "target_port",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "request_processing_time",
+      "type": "FLOAT",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "target_processing_time",
+      "type": "FLOAT",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "response_processing_time",
+      "type": "FLOAT",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "elb_status_code",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "target_status_code",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "received_bytes",
+      "type": "INTEGER",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "sent_bytes",
+      "type": "INTEGER",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "request",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "user_agent",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "ssl_cipher",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "ssl_protocol",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "target_group_arn",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "trace_id",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "domain_name",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "chosen_cert_arn",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "matched_rule_priority",
+      "type": "INTEGER",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "request_creation_time",
+      "type": "TIMESTAMP",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "actions_executed",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "redirect_url",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "error_reason",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    }
+  ]
+}
