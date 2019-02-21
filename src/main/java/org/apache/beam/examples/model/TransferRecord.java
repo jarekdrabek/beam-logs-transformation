@@ -2,6 +2,10 @@ package org.apache.beam.examples.model;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TransferRecord implements Serializable {
 
@@ -37,53 +41,32 @@ public class TransferRecord implements Serializable {
     private String redirect_url;
     private String error_reason;
 
-    private TransferRecord() {
-
-    }
 
     public static TransferRecord fromSpaceDelimitedString(String spaceDelimitedString) throws IllegalAccessException {
-        String[] log_fields = spaceDelimitedString.split(" ");
+        List<String> log_fields = tokenizeStringButIgnoreDelimitersWithinQuotes(spaceDelimitedString);
 
         TransferRecord transferRecord = new TransferRecord();
 
         Field[] fields = TransferRecord.class.getDeclaredFields();
         for(int i = 0; i< fields.length; i++){
-            fields[i].set(transferRecord, log_fields[i]);
+            fields[i].set(transferRecord, log_fields.get(i));
         }
         return transferRecord;
-//        return new TransferRecord(
-//                log_fields[0],
-//                log_fields[1],
-//                log_fields[2],
-//                log_fields[3],
-//                log_fields[4],
-//                log_fields[5],
-//
-//                log_fields[6],
-//                log_fields[7],
-//                log_fields[8],
-//                log_fields[9],
-//                log_fields[10],
-//
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5],
-//                log_fields[5]
-//
-//        );
+    }
+
+    private static List<String> tokenizeStringButIgnoreDelimitersWithinQuotes(String spaceDelimitedString) {
+        String regex = "\"([^\"]*)\"|(\\S+)";
+        List<String> list = new ArrayList<>();
+        Matcher m = Pattern.compile(regex).matcher(spaceDelimitedString);
+
+        while(m.find()){
+            if(m.group(1)!=null){
+                list.add(m.group(1));
+            } else {
+                list.add(m.group(2));
+            }
+        }
+        return list;
     }
 
     public String getS3Folder() {
@@ -194,14 +177,31 @@ public class TransferRecord implements Serializable {
     public String toString() {
         return "TransferRecord{" +
                 "s3Folder='" + s3Folder + '\'' +
+                ", type='" + type + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", elb='" + elb + '\'' +
+                ", client_port='" + client_port + '\'' +
+                ", target_port='" + target_port + '\'' +
+                ", request_processing_time='" + request_processing_time + '\'' +
+                ", target_processing_time='" + target_processing_time + '\'' +
+                ", response_processing_time='" + response_processing_time + '\'' +
+                ", elb_status_code='" + elb_status_code + '\'' +
                 ", target_status_code='" + target_status_code + '\'' +
+                ", received_bytes='" + received_bytes + '\'' +
+                ", sent_bytes='" + sent_bytes + '\'' +
                 ", request='" + request + '\'' +
+                ", user_agent='" + user_agent + '\'' +
+                ", ssl_cipher='" + ssl_cipher + '\'' +
+                ", ssl_protocol='" + ssl_protocol + '\'' +
+                ", target_group_arn='" + target_group_arn + '\'' +
+                ", trace_id='" + trace_id + '\'' +
+                ", domain_name='" + domain_name + '\'' +
+                ", chosen_cert_arn='" + chosen_cert_arn + '\'' +
+                ", matched_rule_priority='" + matched_rule_priority + '\'' +
+                ", request_creation_time='" + request_creation_time + '\'' +
+                ", actions_executed='" + actions_executed + '\'' +
+                ", redirect_url='" + redirect_url + '\'' +
+                ", error_reason='" + error_reason + '\'' +
                 '}';
-    }
-
-    public static void main(String[] args) throws IllegalAccessException {
-        TransferRecord transferRecord = TransferRecord.fromSpaceDelimitedString("prd-cymes-euw1-walletservice https 2019-02-01T10:35:34.374285Z app/awseb-AWSEB-14YOUYUUAWYXF/7a060ffe0a97c917 192.168.32.250:34098 192.168.32.250:80 0.001 0.002 0.000 200 200 227 1064 \"GET https://euw1-walletservice.atm-osp.com:443/health-check HTTP/1.1\" \"Java/1.8.0_191\" ECDHE-RSA-AES128-GCM-SHA256 TLSv1.2 arn:aws:elasticloadbalancing:eu-west-1:400144580646:targetgroup/awseb-AWSEB-1QUUOS8918BW3/335cfa98f0174dc0 \"Root=1-5c5420f6-46aa80c5a01c96bafda51905\" \"euw1-walletservice.atm-osp.com\" \"arn:aws:acm:eu-west-1:400144580646:certificate/d489e7aa-defe-436b-a6e0-28f058bd7000\" 0 2019-02-01T10:35:34.370000Z \"forward\" \"-\" \"-\"");
-
-        System.out.println(transferRecord);
     }
 }
